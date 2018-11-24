@@ -2,10 +2,10 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-t_len	ft_len(char *str)
+static t_size	ft_len(char *str)
 {
 	int n;
-	t_len len;
+	t_size len;
 
 	len.x = 0;
 	len.y = 0;
@@ -21,26 +21,33 @@ t_len	ft_len(char *str)
 	return (len);
 }
 
-void	ft_get_all_nb(t_fdf *map, char *str)
+static void	ft_get_all_nb(t_fdf *map, char *str)
 {
-	int n;
-	int m;
-	char *nb;
+	int	n;
+	int	m;
+	t_size	coord;
 
 	n = -1;
-	nb = ft_memalloc(map->len.y * map->len.x);
-	m = 0;
+	m = -1;
 	if ((str[0] >= '0' && str[0] <= '9') || str[0] == '-')
-		nb[m++] = ft_atoi(&str[n]);
+	{
+		coord.x = ++m % map->size.x;
+		coord.y = m / map->size.x;
+		map->map[coord.y][coord.x] = ft_atoi(&str[n]);
+	}
 	while (str[++n])
 		if (str[n] == ' ' && ((str[n + 1] >= '0'
 			&& str[n + 1] <= '9') || str[n + 1] == '-'))
-			nb[m++] = ft_atoi(&str[n]);
+		{
+		
+			coord.x = ++m % map->size.x;
+			coord.y = m / map->size.x;
+			map->map[coord.y][coord.x] = ft_atoi(&str[n]);
+		}
 	free(str);
-	map->map = nb;
 }
 
-char	*ft_get_all(t_fdf *map, int fd)
+static char	*ft_get_all(t_fdf *map, int fd)
 {
 	char	*all;
 	char	*tmp;
@@ -56,7 +63,7 @@ char	*ft_get_all(t_fdf *map, int fd)
 		all = ft_strjoin(tmp, buf);
 		free(tmp);
 	}
-	map->len = ft_len(all);
+	map->size = ft_len(all);
 	ret = -1;
 	while (all[++ret] != '\0')
 		if (all[ret] == '\n')
@@ -64,32 +71,24 @@ char	*ft_get_all(t_fdf *map, int fd)
 	return (all);
 }
 
-int	ft_get_map(t_fdf *map, char *ficher)
+int	ft_get_map(t_fdf *map, char *file)
 {
 	int	fd;
 	char	*all;
+	size_t	n;
 	
-	fd = open(ficher, O_RDONLY);
+	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (0);
 	all = ft_get_all(map, fd);
+	if (!(map->map = malloc(sizeof(char*) * map->size.y)))
+		return (0);
+	n = -1;
+	while (++n < map->size.y)
+		if (!(map->map[n] = malloc(sizeof(char) * map->size.x)))
+			return (0);
 	ft_get_all_nb(map, all);
 	if (close(fd) == -1)
 		return (0);
-	return (1);
-}
-
-
-int main(int ac, char **av)
-{
-	t_fdf	*map;
-
-	if (ac != 2)
-		return (0);
-	if (!(map = malloc(sizeof(t_fdf))))
-		return (0);
-	ft_get_map(map, av[1]);
-	free(map->map);
-	free(map);
 	return (1);
 }

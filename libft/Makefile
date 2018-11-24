@@ -86,15 +86,15 @@ OTHERFILES = ft_atoi.c\
 		ft_power.c\
 		ft_print_tables.c\
 		ft_print_tables_fd.c\
+		get_next_line.c\
 
 SRCFILES = $(addprefix $(MEMDIR),$(MEMFILES))\
 	 	$(addprefix $(STRDIR),$(STRFILES))\
 	 	$(addprefix $(PUTDIR),$(PUTFILES))\
 	 	$(addprefix $(LSTDIR),$(LSTFILES))\
 		$(addprefix $(OTHERDIR),$(OTHERFILES))\
-		get_next_line.c\
 
-INCFILES = libft.h get_next_line.h
+INCFILES = libft.h
 SRC = $(addprefix $(SRCDIR),$(SRCFILES))
 INC = $(addprefix $(INCDIR),$(INCFILES))
 OBJ = $(SRC:.c=.o)

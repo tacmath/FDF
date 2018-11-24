@@ -13,6 +13,12 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# ifndef BUFF_SIZE
+#  define BUFF_SIZE 32
+# endif
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <unistd.h>
 # include <stdlib.h>
 
 typedef struct		s_list
