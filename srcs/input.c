@@ -71,22 +71,33 @@ static char	*ft_get_all(t_fdf *map, int fd)
 	return (all);
 }
 
+static int	ft_map_alloc(t_fdf *map)
+{
+	size_t	n;
+
+	n = -1;
+	if (!(map->map = malloc(sizeof(char*) * map->size.y)))
+		return (0);
+	while (++n < map->size.y)
+		if (!(map->map[n] = malloc(sizeof(char) * map->size.x)))
+			return (0);
+	map->lenth = 100;
+	map->start.x = 200;
+	map->start.y = 100;
+	map->start.z = 0;
+	return (1);	
+}
+
 int	ft_get_map(t_fdf *map, char *file)
 {
 	int	fd;
 	char	*all;
-	size_t	n;
 	
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (0);
 	all = ft_get_all(map, fd);
-	if (!(map->map = malloc(sizeof(char*) * map->size.y)))
-		return (0);
-	n = -1;
-	while (++n < map->size.y)
-		if (!(map->map[n] = malloc(sizeof(char) * map->size.x)))
-			return (0);
+	ft_map_alloc(map);
 	ft_get_all_nb(map, all);
 	if (close(fd) == -1)
 		return (0);

@@ -1,6 +1,7 @@
 #ifndef FDF_H
 # define FDF_H
 # include "../libft/includes/libft.h"
+# include "../minilibx/mlx.h"
 
 struct		s_size
 {
@@ -12,9 +13,9 @@ typedef struct s_size t_size;
 
 struct		s_coord
 {
-	size_t	x;
-	size_t	y;
-	size_t	z;
+	int	x;
+	int	y;
+	int	z;
 };
 
 typedef struct s_coord t_coord;
@@ -24,7 +25,7 @@ struct		s_fdf
 	void	*mlx_ptr;
 	void	*win_ptr;
 	char	**map;
-	int	lenth;
+	size_t	lenth;
 	t_size	size;
 	t_coord start;
 };
