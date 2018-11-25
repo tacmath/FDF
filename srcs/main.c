@@ -2,7 +2,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-void	ft_free_struct(t_fdf *map)
+void	ft_free_struct(t_map *map)
 {
 	size_t n;
 
@@ -16,16 +16,16 @@ void	ft_free_struct(t_fdf *map)
 
 int main(int ac, char **av)
 {
-	t_fdf	*map;
+	t_map	*map;
 
 	if (ac != 2)
 		return (0);
-	if (!(map = malloc(sizeof(t_fdf))))
+	if (!(map = malloc(sizeof(t_map))))
 		return (0);
-	map->mlx_ptr = mlx_init();
-	map->win_ptr = mlx_new_window(map->mlx_ptr, 1000, 600, "FDF");
-	mlx_loop(map->mlx_ptr);
 	ft_get_map(map, av[1]);
-	ft_free_struct(map);
+/*	map->mlx_ptr = mlx_init();
+**	map->win_ptr = mlx_new_window(map->mlx_ptr, 1000, 600, "FDF");
+**	mlx_loop(map->mlx_ptr);
+*/	ft_free_struct(map);
 	return (1);
 }

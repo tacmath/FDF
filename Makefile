@@ -29,10 +29,12 @@ FLAG = -Wall -Werror -Wextra
 all: $(NAME)
 
 %.o: %.c $(INC)
-	gcc -c -o $@ $< -I includes $(FLAG) libft/libft.a
+	gcc -c -o $@ $< -I includes $(FLAG)
+$(LIB):
+	make -C $(LIBDIR)
 
 $(NAME): $(LIB) $(OBJ) $(INC)
-	gcc -o $@ $(OBJ) $(LIB) -I includes $(FLAG)
+	gcc -o $@ $(LIB) $(OBJ) -I includes $(FLAG) -L ./libft/ -lft
 
 
 clean:

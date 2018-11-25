@@ -21,7 +21,7 @@ static t_size	ft_len(char *str)
 	return (len);
 }
 
-static void	ft_get_all_nb(t_fdf *map, char *str)
+static void	ft_get_all_nb(t_map *map, char *str)
 {
 	int	n;
 	int	m;
@@ -47,7 +47,7 @@ static void	ft_get_all_nb(t_fdf *map, char *str)
 	free(str);
 }
 
-static char	*ft_get_all(t_fdf *map, int fd)
+static char	*ft_get_all(t_map *map, int fd)
 {
 	char	*all;
 	char	*tmp;
@@ -71,7 +71,7 @@ static char	*ft_get_all(t_fdf *map, int fd)
 	return (all);
 }
 
-static int	ft_map_alloc(t_fdf *map)
+static int	ft_map_alloc(t_map *map)
 {
 	size_t	n;
 
@@ -81,14 +81,16 @@ static int	ft_map_alloc(t_fdf *map)
 	while (++n < map->size.y)
 		if (!(map->map[n] = malloc(sizeof(char) * map->size.x)))
 			return (0);
-	map->lenth = 100;
-	map->start.x = 200;
-	map->start.y = 100;
-	map->start.z = 0;
+	map->lenth = 50;
+	map->start.x = (1000 - 50 * map->size.x)/2;
+	map->start.y = (600 - 50 * map->size.y)/2;
+	map->vector.x = 100;
+	map->vector.y = 100;
+	map->vector.x = 0;
 	return (1);	
 }
 
-int	ft_get_map(t_fdf *map, char *file)
+int	ft_get_map(t_map *map, char *file)
 {
 	int	fd;
 	char	*all;
