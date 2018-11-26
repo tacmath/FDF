@@ -6,7 +6,7 @@
 #    By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/05 12:24:50 by mtaquet      #+#   ##    ##    #+#        #
-#    Updated: 2018/11/16 11:24:27 by mtaquet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/11/26 15:32:48 by mtaquet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -17,7 +17,8 @@ SRCDIR = srcs/
 INCDIR = includes/
 LIBFILES = libft.a
 SRCFILES = input.c\
-		main.c\
+		   main.c\
+		   util.c\
 
 INCFILES = fdf.h
 LIB = $(addprefix $(LIBDIR),$(LIBFILES))
@@ -29,12 +30,12 @@ FLAG = -Wall -Werror -Wextra
 all: $(NAME)
 
 %.o: %.c $(INC)
-	gcc -c -o $@ $< -I includes $(FLAG)
+	gcc -c -o $@ $< -I includes -I minilibx $(FLAG)
 $(LIB):
 	make -C $(LIBDIR)
 
 $(NAME): $(LIB) $(OBJ) $(INC)
-	gcc -o $@ $(LIB) $(OBJ) -I includes $(FLAG) -L ./libft/ -lft
+	gcc -o $@ $(LIB) $(OBJ) -I includes -I minilibx $(FLAG) minilibx/libmlx.a -L ./libft/ -lft -framework OpenGL -framework AppKit
 
 
 clean:

@@ -1,4 +1,18 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   input.c                                          .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/11/26 14:35:06 by mtaquet      #+#   ##    ##    #+#       */
+/*   Updated: 2018/11/26 16:08:44 by mtaquet     ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "fdf.h"
+#include "mlx.h"
 #include <sys/stat.h>
 #include <fcntl.h>
 
@@ -73,7 +87,7 @@ static char	*ft_get_all(t_map *map, int fd)
 
 static int	ft_map_alloc(t_map *map)
 {
-	size_t	n;
+	int	n;
 
 	n = -1;
 	if (!(map->map = malloc(sizeof(char*) * map->size.y)))
@@ -82,11 +96,16 @@ static int	ft_map_alloc(t_map *map)
 		if (!(map->map[n] = malloc(sizeof(char) * map->size.x)))
 			return (0);
 	map->lenth = 50;
-	map->start.x = (1000 - 50 * map->size.x)/2;
-	map->start.y = (600 - 50 * map->size.y)/2;
-	map->vector.x = 100;
-	map->vector.y = 100;
-	map->vector.x = 0;
+	map->window.x = 1200;
+	map->window.y = 800;
+	map->start.x = (map->window.x - 50 * map->size.x)/2;
+	map->start.y = (map->window.y - 50 * map->size.y)/2;
+	map->vx.x = 1;
+	map->vx.y = 0;
+	map->vy.x = 0;
+	map->vy.y = 1;
+	map->vz.x = 0;
+	map->vz.y = 0;
 	return (1);	
 }
 
