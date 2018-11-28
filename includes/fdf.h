@@ -1,6 +1,8 @@
 #ifndef FDF_H
 # define FDF_H
 # include "../libft/includes/libft.h"
+# define TRUE 1
+# define FALSE 0
 
 struct		s_size
 {
@@ -17,6 +19,15 @@ struct		s_point
 };
 
 typedef struct s_point t_point;
+
+struct		s_mouse
+{
+	char	status;
+	int		x;
+	int		y;
+};
+
+typedef struct s_mouse t_mouse;
 
 struct		s_coord
 {
@@ -35,6 +46,7 @@ struct		s_map
 	t_size	size;
 	t_size	window;
 	t_point start;
+	t_mouse mouse;
 	t_coord vx;
 	t_coord vy;
 	t_coord vz;
@@ -43,8 +55,8 @@ struct		s_map
 typedef struct s_map t_map;
 
 int		ft_rgb(unsigned int r, unsigned int g, unsigned int b);
-int		deal_key(int key, void *param);
-void	ft_swap(int *a, int *b);
+int		deal_key(int key, t_map *map);
+void	ft_pointswap(t_point *a, t_point *b);
 void	ft_free_map(t_map *map);
 void	ft_pixel(t_map *map, int x, int y, int color);
 int		ft_get_map(t_map *map, char *file);

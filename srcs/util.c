@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/26 11:53:23 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/26 15:50:11 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/28 12:28:31 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -32,11 +32,8 @@ void	ft_free_map(t_map *map)
 	free(map);
 }
 
-int	deal_key(int key, void *param)
+int	deal_key(int key, t_map *map)
 {
-	t_map *map;
-
-	map = (t_map*)param;
 	if (key == 53)
 	{
 		ft_free_map(map);
@@ -50,9 +47,9 @@ void	ft_pixel(t_map *map, int x, int y, int color)
 	mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, color);
 }
 
-void	ft_swap(int *a, int *b)
+void	ft_pointswap(t_point *a, t_point *b)
 {
-	int tmp;
+	t_point tmp;
 
 	tmp = *a;
 	*a = *b;
