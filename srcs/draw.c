@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/29 04:34:57 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/29 06:07:35 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/29 06:37:18 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -67,18 +67,18 @@ void	ft_put_point(t_map *map, int x, int y)
     
     if (x < map->size.x - 1)
     {
-        start.x = map->start.x + (map->vx.x * x) * map->lenth;
+        start.x = map->start.x + (map->vx.x * x +  map->vy.x * y) * map->lenth;
         start.y = map->start.y + (map->vx.y * x + map->vy.y * y + map->vz.y * map->map[y][x] * map->height) * map->lenth;
-        end.x = map->start.x + (map->vx.x * (x + 1)) * map->lenth;
+        end.x = map->start.x + (map->vx.x * (x + 1) +  map->vy.x * y) * map->lenth;
         end.y = map->start.y + (map->vx.y * (x + 1) + map->vy.y * y + map->vz.y * map->map[y][x + 1] * map->height) * map->lenth;
         ft_put_line(map, start, end);
     }
     if (y < map->size.y - 1)
     {
         start.x = map->start.x + (map->vy.x * y + map->vx.x * x) * map->lenth;
-        start.y = map->start.y + (map->vy.y * y + map->vz.y * map->map[y][x] * map->height) * map->lenth;
+        start.y = map->start.y + (map->vy.y * y + map->vx.y * x + map->vz.y * map->map[y][x] * map->height) * map->lenth;
         end.x = map->start.x + (map->vy.x * (y + 1) + map->vx.x * x) * map->lenth;
-        end.y = map->start.y + (map->vy.y * (y + 1) + map->vz.y * map->map[y + 1][x] * map->height) * map->lenth;
+        end.y = map->start.y + (map->vy.y * (y + 1) + map->vx.y * x + map->vz.y * map->map[y + 1][x] * map->height) * map->lenth;
         ft_put_line(map, start, end);
     }
 }

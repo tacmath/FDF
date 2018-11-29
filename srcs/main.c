@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/26 11:53:23 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/29 06:22:34 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/29 06:29:33 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -104,22 +104,22 @@ int mouse_mv(int x, int y, t_map *map)
 	{
 		map->mouse.x = x;
 		map->mouse.y = y;
-		map->vy.y -= 0.025;
+		/*map->vy.y -= 0.025;
 		map->vy.x += 0.025;
 		map->vx.x -= 0.025;
 		map->vx.y += 0.025;
-		ft_putmap(map);
+		ft_putmap(map);*/
 	}
 	if (map->mouse.y -5 - (x - map->mouse.x / 10) <= y
 		&& map->mouse.y + 5 + (x - map->mouse.x / 10) >= y && map->mouse.x - 5 > x)
 	{
 		map->mouse.x = x;
 		map->mouse.y = y;
-	/*	if (map->vy.y <= -1)
-			map->vy.y = 1;
 		map->vy.y -= 0.025;
-		map->vz.y -= 0.0025;
-		ft_putmap(map);*/
+		map->vy.x += 0.025;
+		map->vx.x -= 0.025;
+		map->vx.y += 0.025;
+		ft_putmap(map);
 	}
 	return (1);
 }
