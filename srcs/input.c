@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/26 14:35:06 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/28 14:51:30 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/11/29 05:43:57 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -96,11 +96,12 @@ static int	ft_map_alloc(t_map *map)
 		if (!(map->map[n] = malloc(sizeof(char) * map->size.x)))
 			return (0);
 	map->lenth = 50;
+	map->height = 1;
 	map->window.x = 1200;
 	map->window.y = 800;
-	map->start.x = (map->window.x - 50 * (map->size.x - 1))/2;
-	map->start.y = (map->window.y - 50 * (map->size.y - 1))/2;
 	map->mouse.status = FALSE;
+	map->motion.x = 0;
+	map->motion.y = 0;
 	map->vx.x = 1;
 	map->vx.y = 0;
 	map->vy.x = 0;

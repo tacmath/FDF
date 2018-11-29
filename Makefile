@@ -6,7 +6,7 @@
 #    By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/05 12:24:50 by mtaquet      #+#   ##    ##    #+#        #
-#    Updated: 2018/11/26 15:32:48 by mtaquet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/11/29 04:43:28 by mtaquet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -18,6 +18,8 @@ INCDIR = includes/
 LIBFILES = libft.a
 SRCFILES = input.c\
 		   main.c\
+		   event.c\
+		   draw.c\
 		   util.c\
 
 INCFILES = fdf.h
