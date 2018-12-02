@@ -33,7 +33,6 @@ struct		s_coord
 {
 	double	x;
 	double	y;
-	double	z;
 };
 
 typedef struct s_coord t_coord;
@@ -73,7 +72,6 @@ struct		s_map
 	t_point start;
 	t_mouse mouse;
 	t_color color;
-	t_mouse test;			//enlever si plus besoin
 	t_coord vx;
 	t_coord vy;
 	t_coord vz;
@@ -87,7 +85,7 @@ int		ft_rgb(unsigned int r, unsigned int g, unsigned int b);
 int		deal_key(int key, t_map *map);
 void	ft_pointswap(t_point *a, t_point *b);
 void	ft_free_map(t_map *map);
-void	ft_pixel(t_map *map, int x, int y);
+void	ft_pixel(t_map *map, int x, int y, int h);
 void	ft_put_line(t_map *map, t_point start, t_point end);
 void	ft_put_point(t_map *map, int x, int y);
 void	ft_colorput(t_map *map, int start, int end);

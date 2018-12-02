@@ -51,15 +51,25 @@ void	ft_color_change(t_rgb *color)
 	}
 }
 
-void	ft_pixel(t_map *map, int x, int y)
+
+
+void	ft_pixel(t_map *map, int x, int y, int h)
 {
 	t_rgb color;
 	
 	if (map->color.status == TRUE)
 	{
-		color.r = map->color.start.r + ((map->color.end.r - map->color.start.r) / map->lenth) * map->color.n;
-		color.g = map->color.start.g + ((map->color.end.g - map->color.start.g) / map->lenth) * map->color.n;
-		color.b = map->color.start.b + ((map->color.end.b - map->color.start.b) / map->lenth) * map->color.n;
+		if (h == 0)
+			h = map->lenth;
+		color.r = map->color.start.r + ((map->color.end.r - map->color.start.r) / (double)h) * map->color.n;
+		color.g = map->color.start.g + ((map->color.end.g - map->color.start.g) / (double)h) * map->color.n;
+		color.b = map->color.start.b + ((map->color.end.b - map->color.start.b) / (double)h) * map->color.n;
+		if (map->color.end.r == map->color.start.r)
+                       color.r = map->color.start.r;
+		if (map->color.end.g == map->color.start.g)
+                        color.g = map->color.start.g;
+		if (map->color.end.b == map->color.start.b)
+                        color.b = map->color.start.b;
 		map->color.n++;
 		mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, ft_rgb(color.r, color.g, color.b));
 	}

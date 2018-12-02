@@ -104,7 +104,6 @@ static int	ft_map_alloc(t_map *map)
 	map->motion.y = 0;
 	map->vx.x = 1;
 	map->vx.y = 0;
-	map->vx.z = 0;
 	map->vy.x = 0;
 	map->vy.y = 1;
 	map->vz.x = 0;

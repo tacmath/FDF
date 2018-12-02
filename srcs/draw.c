@@ -14,13 +14,43 @@
 #include "fdf.h"
 #include "mlx.h"
 
+void	ft_colorswap(t_rgb *c1, t_rgb *c2)
+{
+	t_rgb tmp;
+	
+	tmp = *c1;
+	*c1 = *c2;
+	*c2 = tmp;
+}
+
+int	ft_abs(int nb)
+{
+	if (nb < 0)
+		nb = -nb;
+	return (nb);
+}
+
+int	ft_sqr(int nb)
+{
+	int n;
+
+	n = 0;
+	while (n * n < nb)
+		n++;
+	return (n);
+}
+
 void	ft_put_line(t_map *map, t_point start, t_point end)
 {
     double dir;
+    int lenth;
     t_point pix;
-    
+	
+    if (end.x < start.x)
+	ft_colorswap(&(map->color.start), &(map->color.end));
     if (end.x < start.x)
         ft_pointswap(&end, &start);
+    lenth = ft_sqr(ft_abs(ft_power(end.x - start.x, 2) + ft_power(ft_abs(end.y - start.y), 2)));
     pix.x = start.x + 1;
     if ((dir = end.x - start.x) != 0)
         dir = (end.y - start.y) / dir;
@@ -33,7 +63,7 @@ void	ft_put_line(t_map *map, t_point start, t_point end)
             //				ft_pixel(map, pix.x - 1, pix.y + 1, ft_rgb(255/2, 255/2, 255/2));
             while ((int)(dir * (pix.x - start.x) + start.y) != pix.y)
             {
-                ft_pixel(map, pix.x - 1, pix.y);
+                ft_pixel(map, pix.x - 1, pix.y, lenth);
                 if ((int)(dir * (pix.x - start.x) + start.y) > pix.y)
                     pix.y++;
                 else
@@ -41,13 +71,13 @@ void	ft_put_line(t_map *map, t_point start, t_point end)
             }
         }
         else
-            ft_pixel(map, pix.x - 1, pix.y);
+            ft_pixel(map, pix.x - 1, pix.y, lenth);
         pix.x++;
     }
     if ((end.x - start.x) == 0)
         while (end.y != pix.y)
         {
-            ft_pixel(map, pix.x - 1, pix.y);
+            ft_pixel(map, pix.x - 1, pix.y, lenth);
             if (end.y > pix.y)
                 pix.y++;
             else
@@ -74,7 +104,7 @@ void	ft_put_point(t_map *map, int x, int y)
         start.x = map->start.x + (map->vy.x * y + map->vx.x * x + map->vz.x * map->map[y][x] * map->height) * map->lenth;
         start.y = map->start.y + (map->vy.y * y + map->vx.y * x + map->vz.y * map->map[y][x] * map->height) * map->lenth;
         end.x = start.x + (map->vy.x + map->vz.x * (map->map[y + 1][x] - map->map[y][x]) * map->height) * map->lenth;
-        end.y = start.y + (map->vy.y + map->vz.y * (map->map[y + 1][x] - map->map[y][x]) * map->height) * (map->lenth + 1);
+        end.y = start.y + (map->vy.y + map->vz.y * (map->map[y + 1][x] - map->map[y][x]) * map->height) * map->lenth + 1;
 	ft_colorput(map, map->map[y][x], map->map[y + 1][x]);
         ft_put_line(map, start, end);
     }
