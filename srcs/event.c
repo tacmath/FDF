@@ -17,6 +17,20 @@
 int	deal_key(int key, t_map *map)
 {
 //	ft_putnbr(key);
+	if (key == 8 && map->color.status == FALSE)
+		map->color.status = TRUE;
+	else if (key == 8)
+		map->color.status = FALSE;
+	if (map->color.status == TRUE && key >= 18 && key <= 20)
+	{
+		if (key == 18)
+			ft_color_change(&(map->color.colort));
+		if (key == 19)
+                        ft_color_change(&(map->color.colorm));
+		if (key == 20)
+                        ft_color_change(&(map->color.colorb));
+		ft_putmap(map);		
+	}
 	if (key == 69)
 		map->height += map->height / 10;
 	if (key == 78)
@@ -29,7 +43,7 @@ int	deal_key(int key, t_map *map)
 		map->motion.x += 50;
 	if (key == 123)
 		map->motion.x -= 50;
-	if (key == 69 || key == 78 || (key >= 123 && key <= 126))
+	if (key == 8 || key == 69 || key == 78 || (key >= 123 && key <= 126))
 		ft_putmap(map);
     if (key == 53)
     {

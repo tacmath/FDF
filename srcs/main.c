@@ -35,8 +35,8 @@ int	mouse_down(int button, int x, int y, t_map *map)
 int deal_mouse(int button, int x, int y, t_map *map)
 {
 	double tmp;
-//	t_point start;
-//	t_point end;
+	t_point start;
+	t_point end;
 
 	if (button == 4 || button == 5)
 	{
@@ -55,21 +55,21 @@ int deal_mouse(int button, int x, int y, t_map *map)
 	if (button == 1)
 	{
 		mouse_press(x, y, map);
-		/*if (map->test.status == TRUE)
+		if (map->test.status == TRUE)
 		{
 			start.x = map->test.x;
 			start.y = map->test.y;
 			end.x = x;
 			end.y = y;
 			ft_put_line(map, start, end);
-		}*/
+		}
 	}
-	/*if (button == 2)								//a enlever
+	if (button == 2)								//a enlever
 	{
 		map->test.status = TRUE;
 		map->test.x = x;
 		map->test.y = y;
-	}*/
+	}
 	return (0);
 }
 
@@ -78,47 +78,133 @@ int mouse_mv(int x, int y, t_map *map)
 	if (map->mouse.status == FALSE)
 		return (0);
 	if (map->mouse.x -5 - (y - map->mouse.y / 10) <= x
-		&& map->mouse.x + 5 + (y - map->mouse.y / 10)>= x && map->mouse.y + 5 < y)
+			&& map->mouse.x + 5 + (y - map->mouse.y / 10)>= x && map->mouse.y + 5 < y)
 	{
 		map->mouse.x = x;
 		map->mouse.y = y;
-		if (map->vy.y >= 1)
-			map->vy.y = -1;
-		map->vy.y += 0.025;
-		map->vz.y += 0.0025;
+		if (map->vz.y < 0)
+			map->vy.y += 0.025;
+		else if (map->vy.y > 0)
+			map->vy.y -= 0.025;
+		if (map->vz.y < 1 && map->vy.y > -1)
+			map->vz.y += 0.025;
+		map->vx.z = map->vz.y;
 		ft_putmap(map);
 	}
 	if (map->mouse.x -5 - (y - map->mouse.y / 10) <= x
-		&& map->mouse.x + 5 + (y - map->mouse.y / 10) >= x && map->mouse.y - 5 > y)
+			&& map->mouse.x + 5 + (y - map->mouse.y / 10) >= x && map->mouse.y - 5 > y)
 	{
 		map->mouse.x = x;
 		map->mouse.y = y;
-		if (map->vy.y <= -1)
-			map->vy.y = 1;
-		map->vy.y -= 0.025;
-		map->vz.y -= 0.0025;
+		if (map->vz.y > 0)
+			map->vy.y += 0.025;
+		else if (map->vy.y > 0)
+			map->vy.y -= 0.025;
+		if (map->vz.y > -1)
+			map->vz.y -= 0.025;
+		map->vx.z = map->vz.y;
 		ft_putmap(map);
 	}
 	if (map->mouse.y -5 - (x - map->mouse.x / 10) <= y
-		&& map->mouse.y + 5 + (x - map->mouse.x / 10) >= y && map->mouse.x + 5 < x)
+			&& map->mouse.y + 5 + (x - map->mouse.x / 10) >= y && map->mouse.x + 5 < x)
 	{
 		map->mouse.x = x;
 		map->mouse.y = y;
-		/*map->vy.y -= 0.025;
-		map->vy.x += 0.025;
-		map->vx.x -= 0.025;
-		map->vx.y += 0.025;
-		ft_putmap(map);*/
+		if (map->vz.x < 0)
+		{
+                        map->vx.x += 0.025;
+			map->vy.y += map->vx.z / 40;
+			map->vz.y -= map->vx.z / 400; 	
+			map->vy.x += map->vx.z / 40;
+		}
+                else if (map->vx.x > 0)
+		{
+                        map->vx.x -= 0.025;
+			map->vy.y -= map->vx.z / 40;
+			map->vz.y += map->vx.z / 400;
+			map->vy.x -= map->vx.z / 40;
+		}
+                if (map->vz.x < 0.1 && map->vx.x > -1)
+                        map->vz.x += 0.0025;
+/*		if (map->vx.x > 0 && map->vy.y > 0 && map->vy.x <= 0 && map->vx.y >= 0)
+		{
+			map->vy.y -= 0.025;
+			map->vy.x -= 0.025;
+			map->vx.x -= 0.025;
+			map->vx.y += 0.025;
+		}
+		else if (map->vy.x < 0 && map->vx.y > 0)
+		{
+			map->vy.y -= 0.025;
+			map->vy.x += 0.025;
+			map->vx.x -= 0.025;
+			map->vx.y -= 0.025;
+		}
+		else if (map->vy.y < 0 && map->vx.x < 0)
+                {
+                        map->vy.y += 0.025;
+                        map->vy.x += 0.025;
+                        map->vx.x += 0.025;
+                        map->vx.y -= 0.025;
+                }
+		else if (map->vy.x > 0 && map->vx.y < 0)
+                {
+                        map->vy.y += 0.025;
+                        map->vy.x -= 0.025;
+                        map->vx.x += 0.025;
+                        map->vx.y += 0.025;
+                }*/
+		ft_putmap(map);
 	}
 	if (map->mouse.y -5 - (x - map->mouse.x / 10) <= y
-		&& map->mouse.y + 5 + (x - map->mouse.x / 10) >= y && map->mouse.x - 5 > x)
+			&& map->mouse.y + 5 + (x - map->mouse.x / 10) >= y && map->mouse.x - 5 > x)
 	{
 		map->mouse.x = x;
 		map->mouse.y = y;
-		map->vy.y -= 0.025;
-		map->vy.x += 0.025;
-		map->vx.x -= 0.025;
-		map->vx.y += 0.025;
+		if (map->vz.x > 0)
+		{
+                        map->vx.x += 0.025;
+			map->vy.y += map->vx.z / 40;
+			map->vz.y += map->vx.z / 400;
+		        map->vy.x += map->vx.z / 40;
+                }
+                else if (map->vx.x > 0)
+		{
+                        map->vx.x -= 0.025;
+			map->vy.y -= map->vx.z / 40;
+			map->vz.y -= map->vx.z / 400;
+			map->vy.x -= map->vx.z / 40;
+		}
+                if (map->vz.x > -0.1)
+                        map->vz.x -= 0.0025;
+		/*if (map->vx.x > 0 && map->vy.y > 0 && map->vy.x >= 0 && map->vx.y <= 0)
+		{
+			map->vy.y -= 0.025;
+			map->vy.x += 0.025;
+			map->vx.x -= 0.025;
+			map->vx.y -= 0.025;
+		}
+		else if (map->vy.x > 0 && map->vx.y < 0)
+                {
+                        map->vy.y -= 0.025;
+                        map->vy.x -= 0.025;
+                        map->vx.x -= 0.025;
+                        map->vx.y += 0.025;
+                }
+		else if (map->vy.y < 0 && map->vx.x < 0)
+                {
+			map->vy.y += 0.025;
+                        map->vy.x -= 0.025;
+                        map->vx.x += 0.025;
+                        map->vx.y += 0.025;
+		}
+		else if (map->vy.x < 0 && map->vx.y > 0)
+		{
+			map->vy.y += 0.025;
+                        map->vy.x += 0.025;
+                        map->vx.x += 0.025;
+                        map->vx.y -= 0.025;
+		}*/
 		ft_putmap(map);
 	}
 	return (1);
@@ -134,7 +220,7 @@ int main(int ac, char **av)
 		return (0);
 	if (!(ft_get_map(map, av[1])))
 		return (0);
-//	map->test.status = FALSE;
+	map->test.status = FALSE;
 	map->mlx_ptr = mlx_init();
 	map->win_ptr = mlx_new_window(map->mlx_ptr, map->window.x, map->window.y, "FDF");
 	ft_putmap(map);

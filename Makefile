@@ -17,10 +17,11 @@ SRCDIR = srcs/
 INCDIR = includes/
 LIBFILES = libft.a
 SRCFILES = input.c\
-		   main.c\
-		   event.c\
-		   draw.c\
-		   util.c\
+		main.c\
+		event.c\
+		draw.c\
+		color.c\
+		util.c\
 
 INCFILES = fdf.h
 LIB = $(addprefix $(LIBDIR),$(LIBFILES))
