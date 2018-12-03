@@ -4,14 +4,6 @@
 # define TRUE 1
 # define FALSE 0
 
-struct		s_size
-{
-	int	x;
-	int	y;
-};
-
-typedef struct s_size t_size;
-
 struct		s_point
 {
 	int	x;
@@ -39,7 +31,7 @@ typedef struct s_coord t_coord;
 
 struct          s_rgb
 {
-        unsigned char r;
+	unsigned char r;
 	unsigned char g;
 	unsigned char b;
 };
@@ -50,7 +42,7 @@ struct          s_color
 {
 	int n;
 	char status;
-        t_rgb start;
+	t_rgb start;
 	t_rgb end;
 	t_rgb colort;
 	t_rgb colorm;
@@ -65,10 +57,13 @@ struct		s_map
 	void	*win_ptr;
 	char	**map;
 	int	lenth;
+	int linelenth;
 	double	height;
-	t_size	size;
-	t_size	window;
-	t_size	motion;
+	int heightmax;
+	int heightmin;
+	t_point	size;
+	t_point	window;
+	t_point	motion;
 	t_point start;
 	t_mouse mouse;
 	t_color color;
@@ -85,11 +80,16 @@ int		ft_rgb(unsigned int r, unsigned int g, unsigned int b);
 int		deal_key(int key, t_map *map);
 void	ft_pointswap(t_point *a, t_point *b);
 void	ft_free_map(t_map *map);
-void	ft_pixel(t_map *map, int x, int y, int h);
+void	ft_pixel(t_map *map, int x, int y);
 void	ft_put_line(t_map *map, t_point start, t_point end);
-void	ft_put_point(t_map *map, int x, int y);
 void	ft_colorput(t_map *map, int start, int end);
 void	ft_putmap(t_map *map);
 int		ft_get_map(t_map *map, char *file);
+int     ft_sqr(int nb);
+void	ft_colorswap(t_rgb *c1, t_rgb *c2);
+int     deal_mouse(int button, int x, int y, t_map *map);
+int     mouse_down(int button, int x, int y, t_map *map);
+void	mouse_press(int x, int y, t_map *map);
+int     mouse_mv(int x, int y, t_map *map);
 
 #endif

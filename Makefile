@@ -6,7 +6,7 @@
 #    By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/05 12:24:50 by mtaquet      #+#   ##    ##    #+#        #
-#    Updated: 2018/11/29 04:43:28 by mtaquet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/12/03 11:32:34 by mtaquet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -24,7 +24,7 @@ SRCFILES = input.c\
 		util.c\
 
 INCFILES = fdf.h
-LIB = $(addprefix $(LIBDIR),$(LIBFILES))
+LIB = $(addprefix $(LIBDIR),$(LIBFILES)) minilibx/libmlx.a
 SRC = $(addprefix $(SRCDIR),$(SRCFILES))
 INC = $(addprefix $(INCDIR),$(INCFILES))
 OBJ = $(SRC:.c=.o)
@@ -36,6 +36,7 @@ all: $(NAME)
 	gcc -c -o $@ $< -I includes -I minilibx $(FLAG)
 $(LIB):
 	make -C $(LIBDIR)
+	make -C minilibx
 
 $(NAME): $(LIB) $(OBJ) $(INC)
 	gcc -o $@ $(LIB) $(OBJ) -I includes -I minilibx $(FLAG) minilibx/libmlx.a -L ./libft/ -lft -framework OpenGL -framework AppKit
@@ -43,7 +44,8 @@ $(NAME): $(LIB) $(OBJ) $(INC)
 
 clean:
 	rm -f $(OBJ)
-	$(MAKE) clean -C $(LIBDIR)
+	make clean -C $(LIBDIR)
+	make clean -C minilibx
 
 
 fclean: clean

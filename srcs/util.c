@@ -6,13 +6,23 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/26 11:53:23 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/28 12:28:31 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/03 12:41:00 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "mlx.h"
+
+int	ft_sqr(int nb)
+{
+    int n;
+    
+    n = 0;
+    while (n * n < nb)
+        n++;
+    return (n);
+}
 
 int		ft_rgb(unsigned int r, unsigned int g, unsigned int b)
 {
@@ -27,6 +37,8 @@ void	ft_free_map(t_map *map)
 	while (++n < map->size.y)
 		free(map->map[n]);
 	free(map->map);
+	free(map->win_ptr);
+	free(map->mlx_ptr);
 	free(map);
 }
 

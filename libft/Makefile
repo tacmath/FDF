@@ -6,7 +6,7 @@
 #    By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/04 09:05:22 by mtaquet      #+#   ##    ##    #+#        #
-#    Updated: 2018/10/20 12:09:44 by mtaquet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/12/03 11:23:22 by mtaquet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -86,6 +86,7 @@ OTHERFILES = ft_atoi.c\
 		ft_power.c\
 		ft_print_tables.c\
 		ft_print_tables_fd.c\
+		ft_abs.c\
 		get_next_line.c\
 
 SRCFILES = $(addprefix $(MEMDIR),$(MEMFILES))\

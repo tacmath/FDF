@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/26 14:35:06 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/29 05:43:57 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/03 15:23:12 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,10 +16,49 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-static t_size	ft_len(char *str)
+static void		ft_limit(t_map *map)
+{
+	int x;
+	int y;
+
+	map->heightmax = 0;
+	map->heightmin = 0;
+	y = -1;
+	while (++y < map->size.y)
+	{
+		x = -1;
+		while (++x < map->size.x)
+		{
+			if (map->heightmax < map->map[y][x])
+				map->heightmax = map->map[y][x];
+			if (map->heightmin > map->map[y][x])
+				map->heightmin = map->map[y][x];
+		}
+	}
+}
+static int ft_check_map(t_map *map, char *str)
 {
 	int n;
-	t_size len;
+	int m;
+
+	n = -1;
+	m = 0;
+	while (str[++n])
+	{
+		if (str[n] >= '0' && str[n] <= '9' &&
+			(str[n + 1] == ' ' || str[n + 1] == '\n' || str[n + 1] == '\0'))
+			m++;
+		if (str[n] == '\n')
+			if ((m % map->size.x) > 0)
+				return (0);
+	}
+	return (1);
+}
+
+static t_point	ft_len(char *str)
+{
+	int n;
+	t_point len;
 
 	len.x = 0;
 	len.y = 0;
@@ -39,7 +78,7 @@ static void	ft_get_all_nb(t_map *map, char *str)
 {
 	int	n;
 	int	m;
-	t_size	coord;
+	t_point	coord;
 
 	n = -1;
 	m = -1;
@@ -78,6 +117,8 @@ static char	*ft_get_all(t_map *map, int fd)
 		free(tmp);
 	}
 	map->size = ft_len(all);
+	if (!(ft_check_map(map, all)))
+		return (0);
 	ret = -1;
 	while (all[++ret] != '\0')
 		if (all[ret] == '\n')
@@ -95,10 +136,19 @@ static int	ft_map_alloc(t_map *map)
 	while (++n < map->size.y)
 		if (!(map->map[n] = malloc(sizeof(char) * map->size.x)))
 			return (0);
-	map->lenth = 50;
+	if (map->size.y > map->size.x)
+	{
+		map->window.y =  (map->size.y / (double)map->size.x) * 800 + 200;
+		map->lenth = (map->window.y -200) / map->size.y;
+		map->window.x =  map->lenth * map->size.x + 200;
+	}
+	else
+	{
+		map->window.x =  (map->size.x / (double)map->size.y) * 800 + 200;
+		map->lenth = (map->window.x -200) / map->size.x;
+		map->window.y =  map->lenth * map->size.y + 200;
+	}
 	map->height = 1;
-	map->window.x = 1200;
-	map->window.y = 800;
 	map->mouse.status = FALSE;
 	map->motion.x = 0;
 	map->motion.y = 0;
@@ -114,15 +164,17 @@ static int	ft_map_alloc(t_map *map)
 
 int	ft_get_map(t_map *map, char *file)
 {
-	int	fd;
+	int		fd;
 	char	*all;
 	
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (0);
-	all = ft_get_all(map, fd);
+	if (!(all = ft_get_all(map, fd)))
+		return (0);
 	ft_map_alloc(map);
 	ft_get_all_nb(map, all);
+	ft_limit(map);
 	if (close(fd) == -1)
 		return (0);
 	return (1);
