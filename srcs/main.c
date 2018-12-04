@@ -14,13 +14,6 @@
 #include "fdf.h"
 #include "mlx.h"
 
-int ft_destroy(t_map *map)
-{
-	ft_free_map(map);
-	exit(1);
-	return (1);
-}
-
 int main(int ac, char **av)
 {
 	t_map	*map;

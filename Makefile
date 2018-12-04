@@ -6,7 +6,7 @@
 #    By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/05 12:24:50 by mtaquet      #+#   ##    ##    #+#        #
-#    Updated: 2018/12/03 11:32:34 by mtaquet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/12/04 16:57:20 by mtaquet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -19,6 +19,7 @@ LIBFILES = libft.a
 SRCFILES = input.c\
 		main.c\
 		event.c\
+		eventmouse.c\
 		draw.c\
 		color.c\
 		util.c\

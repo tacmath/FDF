@@ -21,14 +21,6 @@ struct		s_mouse
 
 typedef struct s_mouse t_mouse;
 
-struct		s_coord
-{
-	double	x;
-	double	y;
-};
-
-typedef struct s_coord t_coord;
-
 struct          s_rgb
 {
 	unsigned char r;
@@ -67,13 +59,14 @@ struct		s_map
 	t_point start;
 	t_mouse mouse;
 	t_color color;
-	t_coord vx;
-	t_coord vy;
-	t_coord vz;
+	t_point vx;
+	t_point vy;
+	t_point vz;
 };
 
 typedef struct s_map t_map;
 
+int     ft_destroy(t_map *map);
 void	ft_color_init(t_map *map);
 void    ft_color_change(t_rgb *color);
 int		ft_rgb(unsigned int r, unsigned int g, unsigned int b);

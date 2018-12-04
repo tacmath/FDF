@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/26 14:35:06 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/04 14:09:03 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/04 15:52:41 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -152,10 +152,10 @@ static int	ft_map_alloc(t_map *map)
 	map->mouse.status = FALSE;
 	map->motion.x = 0;
 	map->motion.y = 0;
-	map->vx.x = 1;
+	map->vx.x = 1000;
 	map->vx.y = 0;
 	map->vy.x = 0;
-	map->vy.y = 1;
+	map->vy.y = 1000;
 	map->vz.x = 0;
 	map->vz.y = 0;
 	ft_color_init(map);

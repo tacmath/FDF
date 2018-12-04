@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/29 04:34:57 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/04 15:20:47 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/04 16:38:50 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -64,17 +64,11 @@ void	ft_pixel(t_map *map, int x, int y)
 	{
 		h = map->linelenth;
 		color.r = map->color.start.r + ((map->color.end.r -
-			map->color.start.r) / (double)h) * map->color.n;
+			map->color.start.r) * map->color.n) / h;
 		color.g = map->color.start.g + ((map->color.end.g -
-			map->color.start.g) / (double)h) * map->color.n;
+			map->color.start.g) * map->color.n) / h;
 		color.b = map->color.start.b + ((map->color.end.b -
-			map->color.start.b) / (double)h) * map->color.n;
-		if (map->color.end.r == map->color.start.r)
-			color.r = map->color.start.r;
-		if (map->color.end.g == map->color.start.g)
-			color.g = map->color.start.g;
-		if (map->color.end.b == map->color.start.b)
-			color.b = map->color.start.b;
+			map->color.start.b) * map->color.n) / h;
 		map->color.n++;
 		mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, ft_rgb(color.r, color.g, color.b));
 	}
