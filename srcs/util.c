@@ -6,13 +6,20 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/26 11:53:23 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/03 12:41:00 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/04 14:06:57 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "mlx.h"
+
+
+int error_msg(char *str)
+{
+	ft_putendl(str);
+	return (0);
+}
 
 int	ft_sqr(int nb)
 {

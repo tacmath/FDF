@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/26 14:35:06 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/03 15:23:12 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/04 14:09:03 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -169,13 +169,21 @@ int	ft_get_map(t_map *map, char *file)
 	
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
+	{
+		ft_putstr("No file ");
+		ft_putendl(file);
 		return (0);
+	}
 	if (!(all = ft_get_all(map, fd)))
-		return (0);
+		return (error_msg("Found wrong line length. Exiting."));
 	ft_map_alloc(map);
 	ft_get_all_nb(map, all);
 	ft_limit(map);
 	if (close(fd) == -1)
+	{
+		ft_putstr("No file ");
+		ft_putendl(file);
 		return (0);
+	}
 	return (1);
 }

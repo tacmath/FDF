@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/29 04:34:57 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/03 14:18:27 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/04 15:20:47 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,25 +39,18 @@ void	ft_color_init(t_map *map)
 
 void	ft_color_change(t_rgb *color)
 {
-	if ((*color).b == 0)
-		(*color).b = 255;
-	else if ((*color).g == 0)
-	{
-		(*color).g = 255;
-		(*color).b = 0;
-	}
-	else if ((*color).r == 0)
-	{
-		(*color).r = 255;
-		(*color).b = 0;
-		(*color).g = 0;
-	}
-	else
-	{
-		(*color).r = 0;
-		(*color).b = 255;
-		(*color).g = 0;
-	}
+	if ((*color).b < 255 && (*color).g == 0)
+		(*color).b += 15;
+	else if ((*color).g < 255 && (*color).r == 0)
+		(*color).g += 15;
+	else if ((*color).g == 255 && (*color).b > 0)
+		(*color).b -= 15;
+	else if ((*color).r < 255 && (*color).b == 0)
+		(*color).r += 15;
+	else if ((*color).r == 255 && (*color).g > 0)
+		(*color).g -= 15;
+	else if ((*color).r > 0)
+		(*color).r -= 15;
 }
 
 

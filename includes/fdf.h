@@ -78,6 +78,7 @@ void	ft_color_init(t_map *map);
 void    ft_color_change(t_rgb *color);
 int		ft_rgb(unsigned int r, unsigned int g, unsigned int b);
 int		deal_key(int key, t_map *map);
+int		deal_press_key(int key, t_map *map);
 void	ft_pointswap(t_point *a, t_point *b);
 void	ft_free_map(t_map *map);
 void	ft_pixel(t_map *map, int x, int y);
@@ -91,5 +92,6 @@ int     deal_mouse(int button, int x, int y, t_map *map);
 int     mouse_down(int button, int x, int y, t_map *map);
 void	mouse_press(int x, int y, t_map *map);
 int     mouse_mv(int x, int y, t_map *map);
+int		error_msg(char *str);
 
 #endif
