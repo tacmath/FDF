@@ -23,20 +23,6 @@ void	ft_colorswap(t_rgb *c1, t_rgb *c2)
 	*c2 = tmp;
 }
 
-void	ft_color_init(t_map *map)
-{
-	map->color.status = FALSE;
-	map->color.colorb.r = 0;
-	map->color.colorb.g = 255;
-	map->color.colorb.b = 0;
-	map->color.colorm.r = 0;
-	map->color.colorm.g = 0;
-	map->color.colorm.b = 255;
-	map->color.colort.r = 255;
-	map->color.colort.g = 0;
-	map->color.colort.b = 0;
-}
-
 void	ft_color_change(t_rgb *color)
 {
 	if ((*color).b < 255 && (*color).g == 0)

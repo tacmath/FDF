@@ -67,7 +67,6 @@ struct		s_map
 typedef struct s_map t_map;
 
 int     ft_destroy(t_map *map);
-void	ft_color_init(t_map *map);
 void    ft_color_change(t_rgb *color);
 int		ft_rgb(unsigned int r, unsigned int g, unsigned int b);
 int		deal_key(int key, t_map *map);
@@ -86,5 +85,7 @@ int     mouse_down(int button, int x, int y, t_map *map);
 void	mouse_press(int x, int y, t_map *map);
 int     mouse_mv(int x, int y, t_map *map);
 int		error_msg(char *str);
+int     ft_map_alloc(t_map *map);
+void    ft_limit(t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/04 16:54:17 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/04 16:56:30 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 13:52:35 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,29 +55,46 @@ int deal_mouse(int button, int x, int y, t_map *map)
 	return (0);
 }
 
-int mouse_mv(int x, int y, t_map *map)
+static void	mv_up(t_map *map, int x, int y)
 {
-	if (map->mouse.status == FALSE || x < 0 || y < 0)
-		return (0);
 	if (map->mouse.y < y)
 	{
 		map->mouse.x = x;
 		map->mouse.y = y;
 		if (map->vz.y < 0)
-			map->vy.y += 25;
+		{
+			map->vx.y += (1000 - ft_abs(map->vx.x)) / 40;
+			map->vy.y += (1000 - ft_abs(map->vy.x)) / 40;
+		}
 		else if (map->vy.y > 0)
-			map->vy.y -= 25;
+		{
+				map->vx.y -= (1000 - ft_abs(map->vx.x)) / 40;
+				map->vy.y -= (1000 - ft_abs(map->vy.x)) / 40;
+		}		
 		if (map->vz.y < 1000 && map->vy.y > -1000)
 			map->vz.y += 25;
 	}
+}
+
+int mouse_mv(int x, int y, t_map *map)
+{
+	if (map->mouse.status == FALSE || x < 0 || y < 0)
+		return (0);
+	mv_up(map, x, y);
 	if (map->mouse.y > y)
 	{
 		map->mouse.x = x;
 		map->mouse.y = y;
 		if (map->vz.y > 0)
-			map->vy.y += 25;
+		{
+			map->vx.y += (1000 - ft_abs(map->vx.x)) / 40;
+			map->vy.y += (1000 - ft_abs(map->vy.x)) / 40;
+		}
 		else if (map->vy.y > 0)
-			map->vy.y -= 25;
+		{
+				map->vx.y -= (1000 - ft_abs(map->vx.x)) / 40;
+				map->vy.y -= (1000 - ft_abs(map->vy.x)) / 40;
+		}	
 		if (map->vz.y > -1000)
 			map->vz.y -= 25;
 	}
