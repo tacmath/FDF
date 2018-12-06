@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/26 14:35:06 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 15:01:36 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/06 14:26:24 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,6 +22,11 @@ static int		ft_check_map(t_map *map, char *str)
 	int m;
 
 	n = -1;
+	while (str[++n])
+		if ((str[n] < '0' || str[n] > '9') && str[n] != '\n' && str[n] != ' '
+			&& str[n] != '-')
+			return (error_msg("Found wrong line length. Exiting."));
+	n = -1;
 	m = 0;
 	while (str[++n])
 	{
@@ -30,7 +35,7 @@ static int		ft_check_map(t_map *map, char *str)
 			m++;
 		if (str[n] == '\n')
 			if ((m % map->size.x) > 0)
-				return (0);
+				return (error_msg("Found wrong line length. Exiting."));
 	}
 	return (1);
 }
@@ -51,6 +56,8 @@ static t_point	ft_len(char *str)
 	while (str[++n] != '\0')
 		if (str[n] == '\n')
 			len.y++;
+	if (str[n] == '\0' && str[n - 1] != '\n')
+		len.y++;
 	return (len);
 }
 
@@ -90,9 +97,11 @@ static char		*ft_get_all(t_map *map, int fd)
 	while ((ret = read(fd, buf, 1000)))
 	{
 		buf[ret] = '\0';
-		tmp = ft_strdup(all);
+		if (!(tmp = ft_strdup(all)))
+			return (0);
 		free(all);
-		all = ft_strjoin(tmp, buf);
+		if (!(all = ft_strjoin(tmp, buf)))
+			return (0);
 		free(tmp);
 	}
 	map->size = ft_len(all);
@@ -111,15 +120,16 @@ int				ft_get_map(t_map *map, char *file)
 	char	*all;
 
 	fd = open(file, O_RDONLY);
-	if (fd == -1)
+	if (fd == -1 || read(fd, 0, 0) == -1)
 	{
 		ft_putstr("No file ");
 		ft_putendl(file);
 		return (0);
 	}
 	if (!(all = ft_get_all(map, fd)))
-		return (error_msg("Found wrong line length. Exiting."));
-	ft_map_alloc(map);
+		return (0);
+	if (!(ft_map_alloc(map)))
+		return (0);
 	ft_get_all_nb(map, all);
 	ft_limit(map);
 	if (close(fd) == -1)

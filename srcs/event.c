@@ -6,52 +6,63 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/29 04:34:44 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 15:06:32 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/06 14:18:49 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "mlx.h"
+#define KEY_ESCAPE	53
+#define KEY_PLUS	69
+#define KEY_MINUS	78
+#define KEY_UP		126
+#define KEY_DOWN	125
+#define KEY_RIGHT	124
+#define KEY_LEFT	123
+#define KEY_ONE		18
+#define KEY_TWO		19
+#define KEY_THREE	20
+#define KEY_C		8
 
 int	deal_press_key(int key, t_map *map)
 {
-	if (key == 69)
+	if (key == KEY_PLUS)
 		map->height += map->height / 40;
-	if (key == 78)
+	if (key == KEY_MINUS)
 		map->height -= map->height / 40;
-	if (key == 126)
+	if (key == KEY_UP)
 		map->motion.y += 8;
-	if (key == 125)
+	if (key == KEY_DOWN)
 		map->motion.y -= 8;
-	if (key == 124)
+	if (key == KEY_RIGHT)
 		map->motion.x -= 8;
-	if (key == 123)
+	if (key == KEY_LEFT)
 		map->motion.x += 8;
-	if (map->color.status == TRUE && key >= 18 && key <= 20)
+	if (map->color.status == TRUE && key >= KEY_ONE && key <= KEY_THREE)
 	{
-		if (key == 18)
+		if (key == KEY_ONE)
 			ft_color_change(&(map->color.colort));
-		if (key == 19)
+		if (key == KEY_TWO)
 			ft_color_change(&(map->color.colorm));
-		if (key == 20)
+		if (key == KEY_THREE)
 			ft_color_change(&(map->color.colorb));
 		ft_putmap(map);
 	}
-	if (key == 69 || key == 78 || (key >= 123 && key <= 126))
+	if (key == KEY_PLUS || key == KEY_MINUS || (key >= 123 && key <= 126))
 		ft_putmap(map);
 	return (0);
 }
 
 int	deal_key(int key, t_map *map)
 {
-	if (key == 8 && map->color.status == FALSE)
+	if (key == KEY_C && map->color.status == FALSE)
 		map->color.status = TRUE;
-	else if (key == 8)
+	else if (key == KEY_C)
 		map->color.status = FALSE;
-	if (key == 8)
+	if (key == KEY_C)
 		ft_putmap(map);
-	if (key == 53)
+	if (key == KEY_ESCAPE)
 	{
 		ft_free_map(map);
 		exit(1);

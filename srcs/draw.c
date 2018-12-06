@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/29 04:34:57 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 14:53:26 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/06 14:06:29 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,6 +65,8 @@ static void	ft_put_colone(t_map *map, int x, int y)
 	t_point	start;
 	t_point	end;
 
+	if (y >= map->size.y - 1)
+		return ;
 	start.x = map->start.x + ((map->vy.x * y + map->vx.x * x +
 		map->vz.x * map->map[y][x] * map->height) * map->lenth) / 1000;
 	start.y = map->start.y + ((map->vy.y * y + map->vx.y * x +
@@ -74,8 +76,11 @@ static void	ft_put_colone(t_map *map, int x, int y)
 	end.y = start.y + ((map->vy.y + map->vz.y * (map->map[y + 1][x]
 		- map->map[y][x]) * map->height) * map->lenth) / 1000;
 	ft_colorput(map, map->map[y][x], map->map[y + 1][x]);
-	if ((start.x > 0 || end.x > 0) && (start.y > 0 || end.y > 0))
-		ft_put_line(map, start, end);
+	if ((start.x < 0 && end.x < 0) || (end.x > map->window.x && start.x >
+		map->window.x) || (start.y < 0 && end.y < 0) ||
+		(end.y > map->window.y && start.y > map->window.y))
+		return ;
+	ft_put_line(map, start, end);
 }
 
 static void	ft_put_point(t_map *map, int x, int y)
@@ -83,22 +88,23 @@ static void	ft_put_point(t_map *map, int x, int y)
 	t_point	start;
 	t_point	end;
 
-	if (x < map->size.x - 1)
-	{
-		start.x = map->start.x + ((map->vx.x * x + map->vy.x * y
-			+ map->vz.x * map->map[y][x] * map->height) * map->lenth) / 1000;
-		start.y = map->start.y + ((map->vx.y * x + map->vy.y * y
-			+ map->vz.y * map->map[y][x] * map->height) * map->lenth) / 1000;
-		end.x = start.x + ((map->vx.x + map->vz.x * (map->map[y][x + 1]
-			- map->map[y][x]) * map->height) * map->lenth) / 1000;
-		end.y = start.y + ((map->vx.y + map->vz.y * (map->map[y][x + 1]
-			- map->map[y][x]) * map->height) * map->lenth) / 1000;
-		ft_colorput(map, map->map[y][x], map->map[y][x + 1]);
-		if ((start.x > 0 || end.x > 0) && (start.y > 0 || end.y > 0))
-			ft_put_line(map, start, end);
-	}
-	if (y < map->size.y - 1)
-		ft_put_colone(map, x, y);
+	ft_put_colone(map, x, y);
+	if (x >= map->size.x - 1)
+		return ;
+	start.x = map->start.x + ((map->vx.x * x + map->vy.x * y
+		+ map->vz.x * map->map[y][x] * map->height) * map->lenth) / 1000;
+	start.y = map->start.y + ((map->vx.y * x + map->vy.y * y
+		+ map->vz.y * map->map[y][x] * map->height) * map->lenth) / 1000;
+	end.x = start.x + ((map->vx.x + map->vz.x * (map->map[y][x + 1]
+		- map->map[y][x]) * map->height) * map->lenth) / 1000;
+	end.y = start.y + ((map->vx.y + map->vz.y * (map->map[y][x + 1]
+		- map->map[y][x]) * map->height) * map->lenth) / 1000;
+	ft_colorput(map, map->map[y][x], map->map[y][x + 1]);
+	if ((start.x < 0 && end.x < 0) || (end.x > map->window.x && start.x >
+		map->window.x) || (start.y < 0 && end.y < 0) ||
+		(end.y > map->window.y && start.y > map->window.y))
+		return ;
+	ft_put_line(map, start, end);
 }
 
 void		ft_putmap(t_map *map)

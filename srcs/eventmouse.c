@@ -6,13 +6,16 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/04 16:54:17 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 14:57:08 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/06 14:29:26 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "mlx.h"
+#define RIGHT_CLICK		1
+#define ROULETTE_UP		5
+#define ROULETTE_DOWN	4
 
 void		mouse_press(int x, int y, t_map *map)
 {
@@ -36,21 +39,21 @@ int			deal_mouse(int button, int x, int y, t_map *map)
 {
 	double	tmp;
 
-	if (button == 4 || button == 5)
+	if (button == ROULETTE_DOWN || button == ROULETTE_UP)
 	{
 		tmp = map->lenth;
-		if ((int)tmp < 10 && button == 5)
+		if ((int)tmp < 10 && button == ROULETTE_UP)
 			tmp += 0.9;
-		if (button == 4)
+		if (button == ROULETTE_DOWN)
 			tmp -= tmp / 10;
-		if (button == 5)
+		if (button == ROULETTE_UP)
 			tmp += tmp / 10;
 		map->lenth = (int)tmp;
 		if (map->lenth == 0)
 			map->lenth = 1;
 		ft_putmap(map);
 	}
-	if (button == 1)
+	if (button == RIGHT_CLICK)
 		mouse_press(x, y, map);
 	return (0);
 }
