@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/26 11:53:23 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/04 14:06:57 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 15:03:07 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,21 +14,20 @@
 #include "fdf.h"
 #include "mlx.h"
 
-
-int error_msg(char *str)
+int		error_msg(char *str)
 {
 	ft_putendl(str);
 	return (0);
 }
 
-int	ft_sqr(int nb)
+int		ft_sqr(int nb)
 {
-    int n;
-    
-    n = 0;
-    while (n * n < nb)
-        n++;
-    return (n);
+	int	n;
+
+	n = 0;
+	while (n * n < nb)
+		n++;
+	return (n);
 }
 
 int		ft_rgb(unsigned int r, unsigned int g, unsigned int b)

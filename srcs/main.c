@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/26 11:53:23 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/04 15:30:09 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 15:02:13 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,7 +14,7 @@
 #include "fdf.h"
 #include "mlx.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_map	*map;
 
@@ -26,7 +26,7 @@ int main(int ac, char **av)
 		return (0);
 	map->mlx_ptr = mlx_init();
 	map->win_ptr = mlx_new_window(map->mlx_ptr,
-		map->window.x, map->window.y, "FDF");
+			map->window.x, map->window.y, "FDF");
 	ft_putmap(map);
 	mlx_mouse_hook(map->win_ptr, deal_mouse, map);
 	mlx_hook(map->win_ptr, 2, 0, deal_press_key, map);

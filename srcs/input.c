@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/26 14:35:06 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 13:31:30 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 15:01:36 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -16,7 +16,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-static int ft_check_map(t_map *map, char *str)
+static int		ft_check_map(t_map *map, char *str)
 {
 	int n;
 	int m;
@@ -26,7 +26,7 @@ static int ft_check_map(t_map *map, char *str)
 	while (str[++n])
 	{
 		if (str[n] >= '0' && str[n] <= '9' &&
-			(str[n + 1] == ' ' || str[n + 1] == '\n' || str[n + 1] == '\0'))
+				(str[n + 1] == ' ' || str[n + 1] == '\n' || str[n + 1] == '\0'))
 			m++;
 		if (str[n] == '\n')
 			if ((m % map->size.x) > 0)
@@ -37,15 +37,15 @@ static int ft_check_map(t_map *map, char *str)
 
 static t_point	ft_len(char *str)
 {
-	int n;
-	t_point len;
+	int		n;
+	t_point	len;
 
 	len.x = 0;
 	len.y = 0;
 	n = -1;
 	while (str[++n] != '\n' && str[n] != '\0')
 		if (str[n] >= '0' && str[n] <= '9' &&
-			(str[n + 1] == ' ' || str[n + 1] == '\n'))
+				(str[n + 1] == ' ' || str[n + 1] == '\n'))
 			len.x++;
 	n = -1;
 	while (str[++n] != '\0')
@@ -54,10 +54,10 @@ static t_point	ft_len(char *str)
 	return (len);
 }
 
-static void	ft_get_all_nb(t_map *map, char *str)
+static void		ft_get_all_nb(t_map *map, char *str)
 {
-	int	n;
-	int	m;
+	int		n;
+	int		m;
 	t_point	coord;
 
 	n = -1;
@@ -70,9 +70,8 @@ static void	ft_get_all_nb(t_map *map, char *str)
 	}
 	while (str[++n])
 		if (str[n] == ' ' && ((str[n + 1] >= '0'
-			&& str[n + 1] <= '9') || str[n + 1] == '-'))
+						&& str[n + 1] <= '9') || str[n + 1] == '-'))
 		{
-		
 			coord.x = ++m % map->size.x;
 			coord.y = m / map->size.x;
 			map->map[coord.y][coord.x] = ft_atoi(&str[n]);
@@ -80,12 +79,12 @@ static void	ft_get_all_nb(t_map *map, char *str)
 	free(str);
 }
 
-static char	*ft_get_all(t_map *map, int fd)
+static char		*ft_get_all(t_map *map, int fd)
 {
 	char	*all;
 	char	*tmp;
 	char	buf[1000 + 1];
-	int	ret;
+	int		ret;
 
 	all = ft_memalloc(1);
 	while ((ret = read(fd, buf, 1000)))
@@ -106,11 +105,11 @@ static char	*ft_get_all(t_map *map, int fd)
 	return (all);
 }
 
-int	ft_get_map(t_map *map, char *file)
+int				ft_get_map(t_map *map, char *file)
 {
 	int		fd;
 	char	*all;
-	
+
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 	{

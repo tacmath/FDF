@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 13:34:41 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 13:42:31 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/05 14:59:18 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -28,19 +28,19 @@ static void	ft_color_init(t_map *map)
 	map->color.colort.b = 0;
 }
 
-static void ft_map_init(t_map *map)
+static void	ft_map_init(t_map *map)
 {
 	if (map->size.y > map->size.x)
 	{
-		map->window.y =  (map->size.y / (double)map->size.x) * 800 + 200;
-		map->lenth = (map->window.y -200) / map->size.y;
-		map->window.x =  map->lenth * map->size.x + 200;
+		map->window.y = (map->size.y / (double)map->size.x) * 800 + 200;
+		map->lenth = (map->window.y - 200) / map->size.y;
+		map->window.x = map->lenth * map->size.x + 200;
 	}
 	else
 	{
-		map->window.x =  (map->size.x / (double)map->size.y) * 800 + 200;
-		map->lenth = (map->window.x -200) / map->size.x;
-		map->window.y =  map->lenth * map->size.y + 200;
+		map->window.x = (map->size.x / (double)map->size.y) * 800 + 200;
+		map->lenth = (map->window.x - 200) / map->size.x;
+		map->window.y = map->lenth * map->size.y + 200;
 	}
 	map->height = 1;
 	map->mouse.status = FALSE;
@@ -54,7 +54,7 @@ static void ft_map_init(t_map *map)
 	map->vz.y = -100;
 }
 
-int	ft_map_alloc(t_map *map)
+int			ft_map_alloc(t_map *map)
 {
 	int	n;
 
@@ -66,7 +66,7 @@ int	ft_map_alloc(t_map *map)
 			return (0);
 	ft_map_init(map);
 	ft_color_init(map);
-	return (1);	
+	return (1);
 }
 
 void		ft_limit(t_map *map)
