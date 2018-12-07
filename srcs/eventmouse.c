@@ -79,6 +79,26 @@ static void	mv_up(t_map *map, int x, int y)
 	}
 }
 */
+void		ft_vchange(t_map *map, char *str)
+{
+	if (str[0] == '+')
+		map->vy.y += 25;
+	else
+		map->vy.y -= 25;
+	if (str[1] == '+')
+		map->vy.x += 25;
+	else 
+		map->vy.x -= 25;
+	if (str[2] == '+')
+		map->vx.x += 25;
+	else
+		map->vx.x -= 25;
+	if (str[3] == '+')
+		map->vx.y += 25;
+	else
+		map->vx.y -= 25;
+}
+
 static void	mv_right(t_map *map, int x, int y)
 {
 	if (map->mouse.x < x)
@@ -86,33 +106,13 @@ static void	mv_right(t_map *map, int x, int y)
 		map->mouse.x = x;
 		map->mouse.y = y;
 		if (map->vx.x > 0 && map->vy.y > 0 && map->vy.x <= 0 && map->vx.y >= 0)
-		{
-			map->vy.y -= 25;
-			map->vy.x -= 25;
-			map->vx.x -= 25;
-			map->vx.y += 25;
-		}
+			ft_vchange(map, "---+");
 		else if (map->vy.x < 0 && map->vx.y > 0)
-		{
-			map->vy.y -= 25;
-			map->vy.x += 25;
-			map->vx.x -= 25;
-			map->vx.y -= 25;
-		}
+			ft_vchange(map, "-+--");
 		else if (map->vy.y < 0 && map->vx.x < 0)
-		{
-			map->vy.y += 25;
-			map->vy.x += 25;
-			map->vx.x += 25;
-			map->vx.y -= 25;
-		}
+			ft_vchange(map, "+++-");
 		else if (map->vy.x > 0 && map->vx.y < 0)
-		{
-			map->vy.y += 25;
-			map->vy.x -= 25;
-			map->vx.x += 25;
-			map->vx.y += 25;
-		}
+			ft_vchange(map, "+-++");
 	}
 }
 
@@ -123,33 +123,13 @@ static void	mv_left(t_map *map, int x, int y)
 		map->mouse.x = x;
 		map->mouse.y = y;
 		if (map->vx.x > 0 && map->vy.y > 0 && map->vy.x >= 0 && map->vx.y <= 0)
-		{
-			map->vy.y -= 25;
-			map->vy.x += 25;
-			map->vx.x -= 25;
-			map->vx.y -= 25;
-		}
+			ft_vchange(map, "-+--");
 		else if (map->vy.x > 0 && map->vx.y < 0)
-		{
-			map->vy.y -= 25;
-			map->vy.x -= 25;
-			map->vx.x -= 25;
-			map->vx.y += 25;
-		}
+			ft_vchange(map, "---+");
 		else if (map->vy.y < 0 && map->vx.x < 0)
-		{
-			map->vy.y += 25;
-			map->vy.x -= 25;
-			map->vx.x += 25;
-			map->vx.y += 25;
-		}
+			ft_vchange(map, "+-++");
 		else if (map->vy.x < 0 && map->vx.y > 0)
-		{
-			map->vy.y += 25;
-			map->vy.x += 25;
-			map->vx.x += 25;
-			map->vx.y -= 25;
-		}
+			ft_vchange(map, "+++-");
 	}
 }
 
