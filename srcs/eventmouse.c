@@ -97,6 +97,14 @@ void		ft_vchange(t_map *map, char *str)
 		map->vx.y += (ft_abs(map->vx.x) + ft_abs(map->vx.y)) / 40;
 	else
 		map->vx.y -= (ft_abs(map->vx.x) + ft_abs(map->vx.y)) / 40;
+	if (str[4] == '+')
+                map->vz.x += (ft_abs(map->vz.x) + ft_abs(map->vz.y)) / 40;
+        else
+                map->vz.x -= (ft_abs(map->vz.x) + ft_abs(map->vz.y)) / 40;
+        if (str[5] == '+')
+                map->vz.y += (ft_abs(map->vz.x) + ft_abs(map->vz.y)) / 40;
+        else
+                map->vz.y -= (ft_abs(map->vz.x) + ft_abs(map->vz.y)) / 40;
 }
 
 static void	mv_right(t_map *map, int x, int y)
@@ -106,13 +114,13 @@ static void	mv_right(t_map *map, int x, int y)
 		map->mouse.x = x;
 		map->mouse.y = y;
 		if (map->vx.x > 0 && map->vy.y > 0 && map->vy.x <= 0 && map->vx.y >= 0)
-			ft_vchange(map, "---+");
+			ft_vchange(map, "---+++");
 		else if (map->vy.x < 0 && map->vx.y > 0)
-			ft_vchange(map, "-+--");
+			ft_vchange(map, "-+---+");
 		else if (map->vy.y < 0 && map->vx.x < 0)
-			ft_vchange(map, "+++-");
+			ft_vchange(map, "+++---");
 		else if (map->vy.x > 0 && map->vx.y < 0)
-			ft_vchange(map, "+-++");
+			ft_vchange(map, "+-+++-");
 	}
 }
 
@@ -123,13 +131,13 @@ static void	mv_left(t_map *map, int x, int y)
 		map->mouse.x = x;
 		map->mouse.y = y;
 		if (map->vx.x > 0 && map->vy.y > 0 && map->vy.x >= 0 && map->vx.y <= 0)
-			ft_vchange(map, "-+--");
+			ft_vchange(map, "-+---+");
 		else if (map->vy.x > 0 && map->vx.y < 0)
-			ft_vchange(map, "---+");
+			ft_vchange(map, "---+++");
 		else if (map->vy.y < 0 && map->vx.x < 0)
-			ft_vchange(map, "+-++");
+			ft_vchange(map, "+-+++-");
 		else if (map->vy.x < 0 && map->vx.y > 0)
-			ft_vchange(map, "+++-");
+			ft_vchange(map, "+++---");
 	}
 }
 

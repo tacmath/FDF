@@ -51,7 +51,7 @@ static void	ft_map_init(t_map *map)
 	map->vy.x = 0;
 	map->vy.y = 800;
 	map->vz.x = 0;
-	map->vz.y = 0;
+	map->vz.y = -200;
 }
 
 int			ft_map_alloc(t_map *map)
