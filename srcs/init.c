@@ -49,7 +49,7 @@ static void	ft_map_init(t_map *map)
 	map->vx.x = 1000;
 	map->vx.y = 0;
 	map->vy.x = 0;
-	map->vy.y = 1000;
+	map->vy.y = 800;
 	map->vz.x = 0;
 	map->vz.y = 0;
 }

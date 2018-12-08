@@ -82,21 +82,21 @@ static void	mv_up(t_map *map, int x, int y)
 void		ft_vchange(t_map *map, char *str)
 {
 	if (str[0] == '+')
-		map->vy.y += 25;
+		map->vy.y += (ft_abs(map->vy.y) + ft_abs(map->vy.x)) / 40;
 	else
-		map->vy.y -= 25;
+		map->vy.y -= (ft_abs(map->vy.y) + ft_abs(map->vy.x)) / 40;
 	if (str[1] == '+')
-		map->vy.x += 25;
+		map->vy.x += (ft_abs(map->vy.y) + ft_abs(map->vy.x)) / 40;
 	else 
-		map->vy.x -= 25;
+		map->vy.x -= (ft_abs(map->vy.y) + ft_abs(map->vy.x)) / 40;
 	if (str[2] == '+')
-		map->vx.x += 25;
+		map->vx.x += (ft_abs(map->vx.x) + ft_abs(map->vx.y)) / 40;
 	else
-		map->vx.x -= 25;
+		map->vx.x -= (ft_abs(map->vx.x) + ft_abs(map->vx.y)) / 40;
 	if (str[3] == '+')
-		map->vx.y += 25;
+		map->vx.y += (ft_abs(map->vx.x) + ft_abs(map->vx.y)) / 40;
 	else
-		map->vx.y -= 25;
+		map->vx.y -= (ft_abs(map->vx.x) + ft_abs(map->vx.y)) / 40;
 }
 
 static void	mv_right(t_map *map, int x, int y)
