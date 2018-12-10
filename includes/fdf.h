@@ -60,7 +60,7 @@ struct					s_map
 {
 	void				*mlx_ptr;
 	void				*win_ptr;
-	char				**map;
+	short int			**map;
 	int					length;
 	int					linelength;
 	double				height;

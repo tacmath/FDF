@@ -59,10 +59,10 @@ int			ft_map_alloc(t_map *map)
 	int	n;
 
 	n = -1;
-	if (!(map->map = malloc(sizeof(char*) * map->size.y)))
+	if (!(map->map = malloc(sizeof(short int*) * map->size.y)))
 		return (0);
 	while (++n < map->size.y)
-		if (!(map->map[n] = malloc(sizeof(char) * map->size.x)))
+		if (!(map->map[n] = malloc(sizeof(short int) * map->size.x)))
 			return (0);
 	ft_map_init(map);
 	ft_color_init(map);
