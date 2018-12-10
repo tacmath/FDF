@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 13:34:41 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/06 14:42:57 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/10 00:44:06 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,25 +33,25 @@ static void	ft_map_init(t_map *map)
 	if (map->size.y > map->size.x)
 	{
 		map->window.y = (map->size.y / (double)map->size.x) * 800 + 200;
-		map->lenth = (map->window.y - 200) / map->size.y;
-		map->window.x = map->lenth * map->size.x + 200;
+		map->length = (map->window.y - 200) / map->size.y;
+		map->window.x = map->length * map->size.x + 200;
 	}
 	else
 	{
 		map->window.x = (map->size.x / (double)map->size.y) * 800 + 200;
-		map->lenth = (map->window.x - 200) / map->size.x;
-		map->window.y = map->lenth * map->size.y + 200;
+		map->length = (map->window.x - 200) / map->size.x;
+		map->window.y = map->length * map->size.y + 200;
 	}
 	map->height = 1;
 	map->mouse.status = FALSE;
 	map->motion.x = 0;
 	map->motion.y = 0;
-	map->vx.x = 1000;
-	map->vx.y = 0;
-	map->vy.x = 0;
-	map->vy.y = 800;
+	map->vx.x = 800;
+	map->vx.y = 180;
+	map->vy.x = -200;
+	map->vy.y = 720;
 	map->vz.x = 0;
-	map->vz.y = -200;
+	map->vz.y = -100;
 }
 
 int			ft_map_alloc(t_map *map)

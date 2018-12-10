@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/29 04:34:57 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 14:46:54 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/10 00:20:23 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -46,7 +46,7 @@ void			ft_pixel(t_map *map, int x, int y)
 
 	if (map->color.status == TRUE)
 	{
-		h = map->linelenth;
+		h = map->linelength;
 		color.r = map->color.start.r + ((map->color.end.r -
 					map->color.start.r) * map->color.n) / h;
 		color.g = map->color.start.g + ((map->color.end.g -

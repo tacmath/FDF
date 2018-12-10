@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/26 14:35:06 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/06 14:26:24 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/10 07:57:10 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,7 @@ static int		ft_check_map(t_map *map, char *str)
 	while (str[++n])
 		if ((str[n] < '0' || str[n] > '9') && str[n] != '\n' && str[n] != ' '
 			&& str[n] != '-')
-			return (error_msg("Found wrong line length. Exiting."));
+			return (error_msg("Found wrong caracter. Exiting."));
 	n = -1;
 	m = 0;
 	while (str[++n])
@@ -71,9 +71,8 @@ static void		ft_get_all_nb(t_map *map, char *str)
 	m = -1;
 	if ((str[0] >= '0' && str[0] <= '9') || str[0] == '-')
 	{
-		coord.x = ++m % map->size.x;
-		coord.y = m / map->size.x;
-		map->map[coord.y][coord.x] = ft_atoi(&str[n]);
+		map->map[0][0] = ft_atoi(str);
+		m++;
 	}
 	while (str[++n])
 		if (str[n] == ' ' && ((str[n + 1] >= '0'
@@ -93,7 +92,7 @@ static char		*ft_get_all(t_map *map, int fd)
 	char	buf[1000 + 1];
 	int		ret;
 
-	all = ft_memalloc(1);
+	all = ft_strnew(1);
 	while ((ret = read(fd, buf, 1000)))
 	{
 		buf[ret] = '\0';

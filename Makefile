@@ -6,7 +6,7 @@
 #    By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/11/05 12:24:50 by mtaquet      #+#   ##    ##    #+#        #
-#    Updated: 2018/12/05 14:23:22 by mtaquet     ###    #+. /#+    ###.fr      #
+#    Updated: 2018/12/10 02:19:29 by mtaquet     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -33,7 +33,7 @@ MLX = $(addprefix $(MLXDIR),$(MLXFILES))
 SRC = $(addprefix $(SRCDIR),$(SRCFILES))
 INC = $(addprefix $(INCDIR),$(INCFILES)) minilibx/mlx.h
 OBJ = $(SRC:.c=.o)
-FLAG = -Wall -Werror -Wextra -I includes -I minilibx
+FLAG = -Wall -Werror -Wextra -I includes -I libft/includes -I minilibx
 
 all: $(NAME)
 

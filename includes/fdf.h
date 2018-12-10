@@ -6,14 +6,14 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/05 14:37:32 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/05 14:42:13 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/10 02:18:51 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# include "../libft/includes/libft.h"
+# include "libft.h"
 # define TRUE 1
 # define FALSE 0
 
@@ -61,8 +61,8 @@ struct					s_map
 	void				*mlx_ptr;
 	void				*win_ptr;
 	char				**map;
-	int					lenth;
-	int					linelenth;
+	int					length;
+	int					linelength;
 	double				height;
 	int					heightmax;
 	int					heightmin;

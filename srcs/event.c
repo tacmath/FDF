@@ -6,7 +6,7 @@
 /*   By: mtaquet <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/29 04:34:44 by mtaquet      #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/06 14:18:49 by mtaquet     ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/10 00:42:13 by mtaquet     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,8 +24,9 @@
 #define KEY_TWO		19
 #define KEY_THREE	20
 #define KEY_C		8
+#define KEY_P		35
 
-int	deal_press_key(int key, t_map *map)
+int		deal_press_key(int key, t_map *map)
 {
 	if (key == KEY_PLUS)
 		map->height += map->height / 40;
@@ -54,13 +55,43 @@ int	deal_press_key(int key, t_map *map)
 	return (0);
 }
 
-int	deal_key(int key, t_map *map)
+void	chage_projection(t_map *map)
+{
+	if (map->vx.x == 1000)
+	{
+		map->vx.x = 800;
+		map->vx.y = 180;
+		map->vy.x = -200;
+		map->vy.y = 720;
+		map->vz.y = -100;
+	}
+	else if (map->vx.x == 800)
+	{
+		map->vx.x = 500;
+		map->vx.y = 450;
+		map->vy.x = -500;
+		map->vy.y = 450;
+		map->vz.y = -100;
+	}
+	else
+	{
+		map->vx.x = 1000;
+		map->vx.y = 0;
+		map->vy.x = 0;
+		map->vy.y = 900;
+		map->vz.y = -100;
+	}
+}
+
+int		deal_key(int key, t_map *map)
 {
 	if (key == KEY_C && map->color.status == FALSE)
 		map->color.status = TRUE;
 	else if (key == KEY_C)
 		map->color.status = FALSE;
-	if (key == KEY_C)
+	if (key == KEY_P)
+		chage_projection(map);
+	if (key == KEY_C || key == KEY_P)
 		ft_putmap(map);
 	if (key == KEY_ESCAPE)
 	{
@@ -70,7 +101,7 @@ int	deal_key(int key, t_map *map)
 	return (1);
 }
 
-int	ft_destroy(t_map *map)
+int		ft_destroy(t_map *map)
 {
 	ft_free_map(map);
 	exit(1);
