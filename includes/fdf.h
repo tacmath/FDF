@@ -98,7 +98,7 @@ int						mouse_down(int button, int x, int y, t_map *map);
 void					mouse_press(int x, int y, t_map *map);
 int						mouse_mv(int x, int y, t_map *map);
 int						error_msg(char *str);
-int						ft_map_alloc(t_map *map);
+void					ft_map_init(t_map *map);
 void					ft_limit(t_map *map);
 
 #endif

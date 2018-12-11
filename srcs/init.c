@@ -28,7 +28,7 @@ static void	ft_color_init(t_map *map)
 	map->color.colort.b = 0;
 }
 
-static void	ft_map_init(t_map *map)
+void	ft_map_init(t_map *map)
 {
 	if (map->size.y > map->size.x)
 	{
@@ -52,21 +52,7 @@ static void	ft_map_init(t_map *map)
 	map->vy.y = 720;
 	map->vz.x = 0;
 	map->vz.y = -100;
-}
-
-int			ft_map_alloc(t_map *map)
-{
-	int	n;
-
-	n = -1;
-	if (!(map->map = malloc(sizeof(short int*) * map->size.y)))
-		return (0);
-	while (++n < map->size.y)
-		if (!(map->map[n] = malloc(sizeof(short int) * map->size.x)))
-			return (0);
-	ft_map_init(map);
 	ft_color_init(map);
-	return (1);
 }
 
 void		ft_limit(t_map *map)

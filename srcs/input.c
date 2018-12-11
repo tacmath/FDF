@@ -16,107 +16,104 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-static int		ft_check_map(t_map *map, char *str)
+static int      ft_len(char *str)
+{
+	int             n;
+	int             nb;
+
+	nb = 0;
+	if ((str[0] >= '0' && str[0] <= '9') || str[0] == '-')
+		nb++;
+	n = -1;
+	while (str[++n])
+		if (((str[n + 1] >= '0' && str[n + 1] <= '9') || str[n + 1] == '-') &&
+				str[n] == ' ')
+			nb++;
+	return (nb);
+}
+
+static int		ft_check(t_map *map, char *str)
 {
 	int n;
-	int m;
 
 	n = -1;
 	while (str[++n])
-		if ((str[n] < '0' || str[n] > '9') && str[n] != '\n' && str[n] != ' '
-			&& str[n] != '-')
+		if ((str[n] < '0' || str[n] > '9')  && str[n] != ' ' && str[n] != '-')
 			return (error_msg("Found wrong caracter. Exiting."));
 	n = -1;
-	m = 0;
-	while (str[++n])
-	{
-		if (str[n] >= '0' && str[n] <= '9' &&
-				(str[n + 1] == ' ' || str[n + 1] == '\n' || str[n + 1] == '\0'))
-			m++;
-		if (str[n] == '\n')
-			if ((m % map->size.x) > 0)
-				return (error_msg("Found wrong line length. Exiting."));
-	}
+	if (ft_len(str) != map->size.x)
+		return (error_msg("Found wrong line length. Exiting."));	
 	return (1);
 }
 
-static t_point	ft_len(char *str)
-{
-	int		n;
-	t_point	len;
-
-	len.x = 0;
-	len.y = 0;
-	n = -1;
-	while (str[++n] != '\n' && str[n] != '\0')
-		if (str[n] >= '0' && str[n] <= '9' &&
-				(str[n + 1] == ' ' || str[n + 1] == '\n'))
-			len.x++;
-	n = -1;
-	while (str[++n] != '\0')
-		if (str[n] == '\n')
-			len.y++;
-	if (str[n] == '\0' && str[n - 1] != '\n')
-		len.y++;
-	return (len);
-}
-
-static void		ft_get_all_nb(t_map *map, char *str)
+static short int		*ft_get_nb(t_map *map, char *str)
 {
 	int		n;
 	int		m;
-	t_point	coord;
+	short int	*line;
 
+	if (!(line = malloc(sizeof(short int) * map->size.x)))
+		return (0);
 	n = -1;
 	m = -1;
 	if ((str[0] >= '0' && str[0] <= '9') || str[0] == '-')
-	{
-		map->map[0][0] = ft_atoi(str);
-		m++;
-	}
+		line[++m] = ft_atoi(str);
 	while (str[++n])
 		if (str[n] == ' ' && ((str[n + 1] >= '0'
 						&& str[n + 1] <= '9') || str[n + 1] == '-'))
-		{
-			coord.x = ++m % map->size.x;
-			coord.y = m / map->size.x;
-			map->map[coord.y][coord.x] = ft_atoi(&str[n]);
-		}
+			line[++m] = ft_atoi(&str[n]);
 	free(str);
+	return (line);
 }
 
-static char		*ft_get_all(t_map *map, int fd)
+static int		ft_map_realloc(t_map *map, char *str)
 {
-	char	*all;
-	char	*tmp;
-	char	buf[1000 + 1];
-	int		ret;
+	short int	**tmp;
+	int		n;
 
-	all = ft_strnew(1);
-	while ((ret = read(fd, buf, 1000)))
-	{
-		buf[ret] = '\0';
-		if (!(tmp = ft_strdup(all)))
-			return (0);
-		free(all);
-		if (!(all = ft_strjoin(tmp, buf)))
-			return (0);
-		free(tmp);
-	}
-	map->size = ft_len(all);
-	if (!(ft_check_map(map, all)))
+	if (!(tmp = malloc(sizeof(short int*) * map->size.y)))
 		return (0);
-	ret = -1;
-	while (all[++ret] != '\0')
-		if (all[ret] == '\n')
-			all[ret] = ' ';
-	return (all);
+	n = -1;
+	while (++n < map->size.y - 1)
+		tmp[n] = map->map[n];
+	free(map->map);
+	if (!(tmp[n] = ft_get_nb(map, str)))
+		return (0);
+	map->map = tmp;
+	return (1);
+}
+
+static int		ft_get_all(t_map *map, int fd)
+{
+	char	*line;
+
+	if (get_next_line(fd, &line) == 1)
+	{
+		map->size.x = ft_len(line);
+		map->size.y++;
+		if (!ft_check(map, line))
+			return (0);
+		if (!(map->map = malloc(sizeof(short int*))))
+			return (0);
+		if (!(map->map[0] = ft_get_nb(map, line)))
+			return (0);
+	}
+	while (get_next_line(fd, &line) == 1)
+	{
+		map->size.y++;
+		if (!ft_check(map, line))
+			return (0);
+		if (!ft_map_realloc(map, line))
+			return (0);
+	}
+	if (map->size.x == 0)
+		return (0);
+	return (1);
 }
 
 int				ft_get_map(t_map *map, char *file)
 {
 	int		fd;
-	char	*all;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1 || read(fd, 0, 0) == -1)
@@ -125,11 +122,11 @@ int				ft_get_map(t_map *map, char *file)
 		ft_putendl(file);
 		return (0);
 	}
-	if (!(all = ft_get_all(map, fd)))
+	map->size.x = 0;
+	map->size.y = 0;
+	if (!(ft_get_all(map, fd)))
 		return (0);
-	if (!(ft_map_alloc(map)))
-		return (0);
-	ft_get_all_nb(map, all);
+	ft_map_init(map);
 	ft_limit(map);
 	if (close(fd) == -1)
 	{

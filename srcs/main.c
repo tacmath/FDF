@@ -27,7 +27,10 @@ int	main(int ac, char **av)
 	if (!(map = malloc(sizeof(t_map))))
 		return (0);
 	if (!(ft_get_map(map, av[1])))
+	{
+		free(map);
 		return (0);
+	}
 	map->mlx_ptr = mlx_init();
 	map->win_ptr = mlx_new_window(map->mlx_ptr,
 			map->window.x, map->window.y, "FDF");
