@@ -71,7 +71,7 @@ static short int		*ft_get_nb(t_map *map, char *str)
 	if ((str[0] >= '0' && str[0] <= '9') || str[0] == '-')
 		line[++m] = ft_atoi(str);
 	while (str[++n])
-		if (str[n] == ' ' && ((str[n + 1] >= '0'
+	if (str[n] == ' ' && ((str[n + 1] >= '0'
 			&& str[n + 1] <= '9') || str[n + 1] == '-'))
 			line[++m] = ft_atoi(&str[n]);
 	free(str);
@@ -101,7 +101,8 @@ static int		ft_get_all(t_map *map, int fd)
 
 	if (get_next_line(fd, &line) == 1)
 	{
-		map->size.x = ft_len(line);
+		if (!(map->size.x = ft_len(line)))
+			return (error_msg("Found wrong line length. Exiting."));
 		map->size.y++;
 		if (!ft_check(map, line))
 			return (0);
