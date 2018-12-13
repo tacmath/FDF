@@ -31,7 +31,7 @@ INCFILES = fdf.h
 LIB = $(addprefix $(LIBDIR),$(LIBFILES))
 MLX = $(addprefix $(MLXDIR),$(MLXFILES))
 SRC = $(addprefix $(SRCDIR),$(SRCFILES))
-INC = $(addprefix $(INCDIR),$(INCFILES)) minilibx/mlx.h
+INC = $(addprefix $(INCDIR),$(INCFILES)) minilibx/mlx.h libft/includes/libft.h
 OBJ = $(SRC:.c=.o)
 FLAG = -Wall -Werror -Wextra -I includes -I libft/includes -I minilibx
 
@@ -40,10 +40,10 @@ all: $(NAME)
 %.o: %.c $(INC)
 	gcc -c -o $@ $< $(FLAG)
 
-$(LIB):
+$(LIB): $(LIBDIR)
 	make -C $(LIBDIR)
 
-$(MLX):
+$(MLX): $(MLXDIR)
 	make -C $(MLXDIR)
 
 $(NAME): $(LIB) $(MLX) $(OBJ) $(INC)
